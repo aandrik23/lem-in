@@ -1,6 +1,7 @@
 package internal
 
 var (
+	debug      = false // determines if debug output will be shown
 	visualizer = false // default visualization is off data is printed on terminal
 	ants       int     // number of ants
 
@@ -29,11 +30,6 @@ type Room struct {
 
 // contains all the paths from DFS
 var allPaths [][]string
-
-var (
-	bestStepPath          []string   // best path from step calculator
-	bestStepDisjointPaths [][]string // includes bestStepPath and others
-)
 
 //-------------------------------------------------------------------------
 /// Create json for python visualizer

@@ -63,7 +63,11 @@ func processLine(line string, numLine int) bool {
 		return false
 	}
 
-	return true // unkown comments will be ignored
+	// if its comment ignore
+	if strings.HasPrefix(line, "##") || strings.TrimSpace(line) == "" {
+		return true
+	}
+	return false // unkown comments or formats will hit an error
 }
 
 // Tunnel Functions----------------------------------------------------
@@ -128,7 +132,7 @@ func isTunnelLine(line string) bool {
 
 func getRoom(line string) bool { // create room
 	parts := strings.Fields(line) // getRoom assumes the line has already passed isRoomLine validation
-	name := parts[0]
+	name := strings.TrimSpace(parts[0])
 	x, err1 := strconv.Atoi(parts[1])
 	y, err2 := strconv.Atoi(parts[2])
 

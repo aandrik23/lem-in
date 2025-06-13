@@ -9,12 +9,16 @@ import (
 )
 
 // ------------------------------------------------------
-func GetFile() string {
+func CheckArguments() string {
 	if len(os.Args) < 2 {
 		Log("insufficient arguments", "error")
 		os.Exit(0)
+	} else if len(os.Args) == 2 {
+		if os.Args[1] == "-h" || os.Args[1] == "--help" {
+			Log("", "help")
+			os.Exit(0)
+		}
 	}
-
 	var (
 		file      string
 		fileFound = false
@@ -24,10 +28,11 @@ func GetFile() string {
 		switch arg {
 		case "-v", "--visualize":
 			visualizer = true
-
+		case "--debug":
+			debug = true
 		default:
 			if strings.HasPrefix(arg, "-") {
-				Log(fmt.Sprintf("unknown flag %q", arg), "error")
+				Log(fmt.Sprintf("unknown flag %q, \ntry <go run . -h> for HELP", arg), "error")
 				os.Exit(0)
 			}
 			if fileFound {
